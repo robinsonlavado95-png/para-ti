@@ -14,81 +14,154 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow-x: hidden;
         }
         .container {
             max-width: 550px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.92); 
+            background: rgba(255, 255, 255, 0.94); 
             color: #4a4a4a;
-            padding: 40px 25px;
+            padding: 35px 25px;
             border-radius: 24px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             text-align: center;
             box-sizing: border-box;
+            position: relative;
+            z-index: 10;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-        h1 { 
+        
+        /* Sistema de Páginas */
+        .page {
+            display: none;
+            animation: fadeIn 0.8s ease forwards;
+            width: 100%;
+        }
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1, h2 { 
             font-size: 26px;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             color: #dc3545; 
         }
         p { 
-            font-size: 18px; 
-            line-height: 1.8; 
+            font-size: 17px; 
+            line-height: 1.7; 
             margin-bottom: 20px;
         }
         .highlight {
             color: #dc3545;
-            font-size: 22px;
+            font-size: 26px;
             display: block;
-            margin-top: 25px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-        /* Botón de música integrado */
-        .music-btn {
+        
+        /* Estilo optimizado para tus fotos */
+        .couple-photo {
+            max-width: 90%;
+            height: auto;
+            max-height: 250px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            object-fit: cover;
+        }
+        
+        /* Botones */
+        .btn {
             background: #dc3545;
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 14px 35px;
             font-size: 16px;
             font-weight: bold;
             border-radius: 25px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
             transition: transform 0.2s, background 0.2s;
+            margin-top: 10px;
         }
-        .music-btn:hover {
+        .btn:hover {
             transform: scale(1.05);
             background: #c82333;
+        }
+
+        /* Corazones flotantes */
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 20px;
+            animation: floatUp 6s linear infinite;
+            bottom: -20px;
+            z-index: 1;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Para el amor de mi vida ❤️</h1>
     
-    <p>
-        No hice esta página porque sea una fecha especial.<br>
-        La hice porque pensé en ti.<br>
-        Porque a veces las personas importantes merecen<br>
-        que les recuerden lo mucho que significan. ✨
-    </p>
-    
-    <p>
-        Desde que llegaste a mi vida, muchas cosas cambiaron para bien.<br>
-        Tus mensajes alegran mis días y tu cariño hace que todo sea más bonito.<br>
-        Gracias por existir y por cada recuerdo juntos.
-    </p>
-    
-    <span class="highlight"><strong>Te quiero muchísimo. ❤️</strong></span>
-    
-    <button class="music-btn" id="play-btn" onclick="playMusic()">Escuchar música 🎵</button>
+    <!-- PÁGINA 1: BIENVENIDA -->
+    <div class="page active" id="page1">
+        <h1>Para el amor de mi vida ❤️</h1>
+        <p>
+            No hice esta página porque sea una fecha especial.<br>
+            La hice simplemente porque estaba pensando en ti, en nosotros y en todo lo que hemos construido juntos. ✨
+        </p>
+        <button class="btn" onclick="nextPage(1)">Empezar a leer 🎵</button>
+    </div>
+
+    <!-- PÁGINA 2: EL PASADO + FOTO PLAYA -->
+    <div class="page" id="page2">
+        <h2>Mirando atrás... ⏳</h2>
+        <img src="image_72e977.jpg" alt="Recuerdos" class="couple-photo">
+        <p>
+            Es increíble recordar cómo empezamos, cómo fuimos creciendo paso a paso y la forma en que avanzamos como pareja. Hemos superado retos y aprendido el uno del otro de una manera hermosa.
+        </p>
+        <button class="btn" onclick="nextPage(2)">Siguiente ❤️</button>
+    </div>
+
+    <!-- PÁGINA 3: EL PRESENTE + FOTO PASTEL -->
+    <div class="page" id="page3">
+        <h2>Nuestra vida juntos 🏠</h2>
+        <img src="image_72ec29.jpg" alt="Convivencia" class="couple-photo">
+        <p>
+            Ahora que estamos más unidos que nunca y convivimos juntos, me doy cuenta de que entrelazar nuestras vidas ha sido lo mejor de mi mundo. Ver tu sonrisa al despertar hace que todo sea más bonito.
+        </p>
+        <button class="btn" onclick="nextPage(3)">Siguiente ✨</button>
+    </div>
+
+    <!-- PÁGINA 4: EL CIERRE -->
+    <div class="page" id="page4">
+        <h2>Gracias por tanto... 📜</h2>
+        <p>
+            Gracias por existir, por tu paciencia, por cada risa y por hacer de nuestro espacio el lugar más seguro del mundo.<br><br>
+            No sé qué nos depare el futuro, pero sé que caminar a tu lado es mi parte favorita de la vida.
+        </p>
+        <span class="highlight"><strong>Te amo muchísimo. ❤️</strong></span>
+    </div>
+
 </div>
 
 <div id="player" style="position: absolute; top: -9999px; left: -9999px;"></div>
 
 <script>
-    // Carga la API oficial de YouTube
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -99,28 +172,47 @@
         player = new YT.Player('player', {
             height: '0',
             width: '0',
-            videoId: '_zmjCoWvXYg', // Tu video de YouTube
+            videoId: '_zmjCoWvXYg', 
             playerVars: {
                 'autoplay': 0,
                 'loop': 1,
                 'playlist': '_zmjCoWvXYg',
-                'controls': 0,
-                'showinfo': 0,
-                'modestbranding': 1
+                'controls': 0
             }
         });
     }
 
-    function playMusic() {
-        var btn = document.getElementById('play-btn');
-        if (player && typeof player.playVideo === 'function') {
-            player.playVideo();
-            btn.innerText = "Reproduciendo... ✨";
-            btn.style.background = "#28a745"; // Cambia a verde al funcionar
-            btn.style.boxShadow = "0 4px 15px rgba(40, 167, 69, 0.3)";
-        } else {
-            alert("La música se está cargando, intenta un clic más en 2 segundos.");
+    let musicStarted = false;
+
+    function nextPage(currentPageId) {
+        if (!musicStarted) {
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
+                createHearts();
+                musicStarted = true;
+            }
         }
+
+        document.getElementById('page' + currentPageId).classList.remove('active');
+        
+        const nextId = currentPageId + 1;
+        const nextPageElement = document.getElementById('page' + nextId);
+        if (nextPageElement) {
+            nextPageElement.classList.add('active');
+        }
+    }
+
+    function createHearts() {
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }, 450);
     }
 </script>
 
