@@ -4,26 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para ti ✨</title>
-    <!-- Importamos fuentes profesionales desde Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #0f0c1b 0%, #201335 50%, #3b1342 100%);
-            --card-bg: rgba(20, 16, 35, 0.65);
-            --card-border: rgba(255, 255, 255, 0.08);
+            --bg-gradient: linear-gradient(135deg, #0b0914 0%, #150d22 50%, #240b2b 100%);
+            --card-bg: rgba(18, 14, 30, 0.75);
+            --card-border: rgba(255, 255, 255, 0.06);
             --accent-color: #ff477e;
             --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
+            --text-muted: #a1a1aa;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -33,55 +28,49 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 24px;
+            padding: 20px;
             overflow: hidden;
             position: relative;
         }
 
-        /* Contenedor estilo Cristal Premium */
         .container {
-            max-width: 480px;
+            max-width: 460px;
             width: 100%;
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--card-border);
-            padding: 40px 30px;
-            border-radius: 28px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            padding: 40px 25px;
+            border-radius: 32px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
             text-align: center;
             position: relative;
             z-index: 10;
-            min-height: 480px;
+            min-height: 520px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: all 0.3s ease;
         }
 
         .greeting {
-            font-size: 14px;
+            font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             color: var(--accent-color);
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
-        .page {
-            display: none;
-            width: 100%;
-        }
-        
+        .page { display: none; width: 100%; }
         .page.active {
             display: block;
-            animation: cubicReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: premiumReveal 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
         
-        @keyframes cubicReveal {
-            from { opacity: 0; transform: translateY(20px) scale(0.98); filter: blur(5px); }
-            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        @keyframes premiumReveal {
+            from { opacity: 0; transform: scale(0.96) translateY(30px); filter: blur(8px); }
+            to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
         }
 
         h1, h2 { 
@@ -92,81 +81,91 @@
             margin-bottom: 20px;
             color: #ffffff;
         }
-        
-        h2 { font-size: 24px; font-style: italic; }
+        h2 { font-size: 23px; font-style: italic; }
 
         p { 
-            font-size: 15px;
-            line-height: 1.7; 
+            font-size: 14.5px;
+            line-height: 1.75; 
             color: var(--text-muted);
             margin-bottom: 28px;
             font-weight: 300;
         }
 
-        .highlight {
-            font-family: 'Playfair Display', serif;
-            color: var(--accent-color);
-            font-size: 26px;
-            display: block;
-            margin-top: 15px;
-            animation: pulse 2s infinite ease-in-out;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-        }
-        
-        /* Contenedor de foto estilo galería chic */
-        .photo-wrapper {
+        /* Lienzo interactivo de "Raspa y Gana" */
+        .scratch-container {
+            position: relative;
             width: 100%;
-            border-radius: 16px;
+            max-width: 340px;
+            height: 240px;
+            margin: 0 auto 26px auto;
+            border-radius: 20px;
             overflow: hidden;
-            margin-bottom: 24px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 8px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            cursor: pointer;
         }
-        
-        .photo-wrapper:hover {
-            transform: translateY(-4px) rotate(1deg);
+
+        .scratch-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 3;
+            touch-action: none; /* Evita que el celular se mueva al raspar */
         }
 
         .couple-photo {
-            width: 100%;
-            height: auto;
-            max-height: 260px;
-            border-radius: 10px;
+            width: 100%; height: 100%;
             object-fit: cover;
-            display: block;
+            position: absolute;
+            top: 0; left: 0;
+            z-index: 1;
         }
-        
-        /* Botón Minimalista Brutalista */
+
+        .scratch-instruction {
+            position: absolute;
+            bottom: 12px; left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: #fff;
+            z-index: 4;
+            pointer-events: none;
+            transition: opacity 0.4s;
+            text-transform: uppercase;
+        }
+
         .btn {
             background: #ffffff;
-            color: #0f0c1b;
+            color: #0b0914;
             border: none;
-            padding: 14px 36px;
-            font-size: 14px;
+            padding: 14px 38px;
+            font-size: 13.5px;
             font-weight: 500;
             letter-spacing: 0.5px;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            margin-top: 10px;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
         
         .btn:hover {
             background: var(--accent-color);
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 24px rgba(255, 71, 126, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 71, 126, 0.4);
         }
 
-        /* Partículas de Corazón Flotantes Orgánicas */
+        .highlight {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-color);
+            font-size: 28px;
+            display: block;
+            margin-top: 15px;
+        }
+
         .floating-heart {
             position: absolute;
             bottom: -20px;
@@ -174,7 +173,6 @@
             z-index: 1;
             opacity: 0;
             color: var(--accent-color);
-            filter: drop-shadow(0 0 5px rgba(255, 71, 126, 0.3));
         }
     </style>
 </head>
@@ -186,76 +184,98 @@
     <div class="page active" id="page1">
         <div class="greeting">Hey, Fiorella 🐵</div>
         <h1>Para el amor de mi vida</h1>
-        <p>
-            No hay una razón oculta ni es un día obligatorio en el calendario. Armé esto simplemente porque te extraño, estaba pensando en nosotros y en lo increíble que es todo lo que estamos construyendo juntos día a día.
-        </p>
+        <p>No hay una razón oculta ni es un día obligatorio en el calendario. Armé esto simplemente porque te extraño, estaba pensando en nosotros y en lo increíble que es todo lo que estamos construyendo juntos día a día.</p>
         <button class="btn" onclick="nextPage(1)">Empezar a leer 🎵</button>
     </div>
 
     <!-- PÁGINA 2 -->
     <div class="page" id="page2">
         <h2>Donde todo fluye...</h2>
-        <div class="photo-wrapper">
-            <img src="./playa.jpg.jpeg" alt="Playa" class="couple-photo">
+        <div class="scratch-container" id="scratch2">
+            <div class="scratch-instruction">Raspa con tu dedo ✨</div>
+            <canvas class="scratch-canvas" id="canvas2"></canvas>
+            <img src="./playa.jpg.jpeg" class="couple-photo">
         </div>
-        <p>
-            A veces me pongo a pensar en cómo empezó todo y en cómo fuimos cambiando paso a paso. Hemos pasado por momentos únicos, superando retos y aprendiendo el uno del otro de una forma muy bonita. Me da mucho orgullo ver dónde estamos hoy.
-        </p>
+        <p>A veces me pongo a pensar en cómo empezó todo y en cómo fuimos cambiando paso a paso. Hemos pasado por momentos únicos, superando retos y aprendiendo el uno del otro de una forma muy bonita.</p>
         <button class="btn" onclick="nextPage(2)">Continuar</button>
     </div>
 
     <!-- PÁGINA 3 -->
     <div class="page" id="page3">
         <h2>Esos 3 días en Huamachuco</h2>
-        <div class="photo-wrapper">
-            <img src="./pastel.jpg.jpeg" alt="De noche" class="couple-photo">
+        <div class="scratch-container" id="scratch3">
+            <div class="scratch-instruction">Raspa con tu dedo ✨</div>
+            <canvas class="scratch-canvas" id="canvas3"></canvas>
+            <img src="./pastel.jpg.jpeg" class="couple-photo">
         </div>
-        <p>
-            Todavía me acuerdo clarito de nuestro último viaje. Esos tres días enteros metidos en nuestra propia burbuja, viajando juntos y sumando una aventura más a la lista. Qué bien la pasamos y qué increíble se siente recorrer lugares contigo.
-        </p>
+        <p>Todavía me acuerdo clarito de nuestro último viaje. Esos tres días enteros metidos en nuestra propia burbuja, viajando juntos y sumando una aventura más a la lista. Qué bien la pasamos.</p>
         <button class="btn" onclick="nextPage(3)">Continuar</button>
     </div>
 
     <!-- PÁGINA 4 -->
     <div class="page" id="page4">
         <h2>La aventura de convivir</h2>
-        <div class="photo-wrapper">
-            <img src="./torta.jpg.jpeg" alt="Celebración" class="couple-photo">
+        <div class="scratch-container" id="scratch4">
+            <div class="scratch-instruction">Raspa con tu dedo ✨</div>
+            <canvas class="scratch-canvas" id="canvas4"></canvas>
+            <img src="./torta.jpg.jpeg" class="couple-photo">
         </div>
-        <p>
-            Y ahora, estar viviendo esta etapa tan unidos y compartiendo nuestra cotidianidad... de verdad que es mi parte favorita del mundo. Juntar nuestras vidas ha sido la mejor decisión de todas, y ver tu sonrisa a diario hace que todo valga la pena.
-        </p>
+        <p>Y ahora, estar viviendo esta etapa tan unidos y compartiendo nuestra cotidianidad... de verdad que es mi parte favorita del mundo. Juntar nuestras vidas ha sido la mejor decisión de todas.</p>
         <button class="btn" onclick="nextPage(4)">Continuar</button>
     </div>
 
     <!-- PÁGINA 5 -->
     <div class="page" id="page5">
         <h2>Gracias por ser tú</h2>
-        <div class="photo-wrapper">
-            <img src="./huamachuco.jpg.jpeg" alt="Monito" class="couple-photo">
+        <div class="scratch-container" id="scratch5">
+            <div class="scratch-instruction">Raspa con tu dedo ✨</div>
+            <canvas class="scratch-canvas" id="canvas5"></canvas>
+            <img src="./huamachuco.jpg.jpeg" class="couple-photo">
         </div>
-        <p>
-            Gracias por estar siempre, por tener esa paciencia que me salva, por cada risa compartida y por hacer de nuestro espacio el lugar más seguro que tengo. Te amo con todo y tus momentos de "monito con sueño" después de un largo día.
-        </p>
+        <p>Gracias por estar siempre, por tener esa paciencia que me salva, por cada risa compartida y por hacer de nuestro espacio el lugar más seguro. Te amo con todo y tus momentos de "monito con sueño".</p>
         <button class="btn" onclick="nextPage(5)">Última página</button>
     </div>
 
     <!-- PÁGINA 6 -->
     <div class="page" id="page6">
         <h2>Para terminar...</h2>
-        <p>
-            No sé qué nos depare el futuro ni a dónde nos lleven los siguientes viajes, pero tengo clarísimo que caminar de tu mano es, y siempre será, la mejor parte de mi vida.
-        </p>
+        <p>No sé qué nos depare el futuro ni a dónde nos lleven los siguientes viajes, pero tengo clarísimo que caminar de tu mano es, y siempre será, la mejor parte de mi vida.</p>
         <span class="highlight">Te amo muchísimo. ❤️</span>
     </div>
 
 </div>
 
-<!-- Reproductor oculto de YouTube -->
 <div id="player" style="position: absolute; top: -9999px; left: -9999px;"></div>
 
 <script>
-    // Carga asíncrona de la API de YouTube
+    // --- MOTOR DE AUDIO NATIVO (Efectos de sonido programados mediante código) ---
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playSoundFX(type) {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'tap') { // Sonido sutil de burbuja al dar clic
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.15);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.15);
+        } else if (type === 'reveal') { // Efecto mágico al revelar foto completamente
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // Nota C5
+            osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3); // Nota A5
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+        }
+    }
+
+    // --- INTEGRACIÓN YOUTUBE ---
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -264,23 +284,15 @@
     var player;
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
-            height: '0',
-            width: '0',
-            videoId: 'T9hBORPjvsc', 
-            playerVars: {
-                'autoplay': 0,
-                'start': 8,       
-                'end': 108,       
-                'controls': 0,
-                'disablekb': 1,
-                'modestbranding': 1
-            }
+            height: '0', width: '0', videoId: 'T9hBORPjvsc', 
+            playerVars: { 'autoplay': 0, 'start': 8, 'end': 108, 'controls': 0, 'disablekb': 1, 'modestbranding': 1 }
         });
     }
 
     let musicStarted = false;
 
     function nextPage(currentPageId) {
+        playSoundFX('tap');
         if (!musicStarted && player && typeof player.playVideo === 'function') {
             player.playVideo();
             musicStarted = true;
@@ -291,48 +303,116 @@
         const nextPageElement = document.getElementById('page' + nextId);
         if (nextPageElement) {
             nextPageElement.classList.add('active');
+            // Inicializar el sistema de raspar de la página que entra
+            setTimeout(() => { initScratch('canvas' + nextId, 'scratch' + nextId); }, 50);
         }
     }
 
-    // Generador de física de partículas orgánicas
+    // --- MOTOR DINÁMICO DE RASPA Y GANA (CANVAS HTML5) ---
+    function initScratch(canvasId, containerId) {
+        const canvas = document.getElementById(canvasId);
+        const container = document.getElementById(containerId);
+        if (!canvas || !container) return;
+
+        const ctx = canvas.getContext('2d');
+        const width = container.offsetWidth;
+        const height = container.offsetHeight;
+        canvas.width = width;
+        canvas.height = height;
+
+        // Pintar la capa superior misteriosa (Gris elegante metálico con grano)
+        ctx.fillStyle = '#27272a';
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = '#3f3f46';
+        for (let i = 0; i < 500; i++) {
+            ctx.fillRect(Math.random() * width, Math.random() * height, 1.5, 1.5);
+        }
+
+        let isDrawing = false;
+        let pixelsScratched = 0;
+        const totalPixels = width * height;
+        let revealed = false;
+
+        function scratch(e) {
+            if (!isDrawing || revealed) return;
+            const rect = canvas.getBoundingClientRect();
+            // Soporte para mouse y pantallas táctiles móviles
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.arc(x, y, 30, 0, Math.PI * 2); // Radio del raspado
+            ctx.fill();
+
+            // Ocultar el cartel de instrucción al empezar a raspar
+            const inst = container.querySelector('.scratch-instruction');
+            if (inst) inst.style.opacity = '0';
+
+            // Comprobar porcentaje de revelado cada ciertos movimientos
+            pixelsScratched++;
+            if (pixelsScratched % 25 === 0) {
+                checkRevealPercent();
+            }
+        }
+
+        function checkRevealPercent() {
+            if (revealed) return;
+            const imgData = ctx.getImageData(0, 0, width, height);
+            let transparentCount = 0;
+            // Revisamos el canal Alpha del lienzo para ver qué tanto se ha borrado
+            for (let i = 3; i < imgData.data.length; i += 40) {
+                if (imgData.data[i] === 0) transparentCount++;
+            }
+            // Si raspó más del 45%, se desvanece por completo automáticamente
+            if (transparentCount / (imgData.data.length / 40) > 0.45) {
+                revealed = true;
+                playSoundFX('reveal');
+                canvas.style.transition = 'opacity 0.6s ease';
+                canvas.style.opacity = '0';
+                setTimeout(() => canvas.remove(), 600);
+            }
+        }
+
+        canvas.addEventListener('mousedown', () => isDrawing = true);
+        canvas.addEventListener('touchstart', () => isDrawing = true);
+        window.addEventListener('mouseup', () => isDrawing = false);
+        window.addEventListener('touchend', () => isDrawing = false);
+        canvas.addEventListener('mousemove', scratch);
+        canvas.addEventListener('touchmove', scratch);
+    }
+
+    // --- ENGINE DE PARTÍCULAS DE VIENTO ORGÁNICAS ---
     function createOrganicHeart() {
         const heart = document.createElement('div');
         heart.classList.add('floating-heart');
-        
-        const symbols = ['❤️', '✨', '🌸', '💖'];
+        const symbols = ['❤️', '✨', '💖', '🌸'];
         heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
         
-        // Parámetros completamente aleatorios para romper patrones de IA
         const startX = Math.random() * 100; 
-        const size = Math.random() * 14 + 12; 
+        const size = Math.random() * 12 + 12; 
         const duration = Math.random() * 3 + 5; 
-        const swayWidth = Math.random() * 40 - 20; 
-        const opacityTarget = Math.random() * 0.5 + 0.4;
+        const sway = Math.random() * 50 - 25; 
 
         heart.style.left = startX + 'vw';
         heart.style.fontSize = size + 'px';
-        
         document.body.appendChild(heart);
 
-        // Animación avanzada usando la API de animaciones web nativa de JS
         const animation = heart.animate([
             { transform: `translateY(0) translateX(0) rotate(0deg)`, opacity: 0 },
-            { opacity: opacityTarget, offset: 0.15 },
-            { transform: `translateY(-50vh) translateX(${swayWidth}px) rotate(180deg)`, opacity: opacityTarget, offset: 0.5 },
-            { transform: `translateY(-105vh) translateX(${swayWidth * -1}px) rotate(360deg)`, opacity: 0 }
-        ], {
-            duration: duration * 1000,
-            easing: 'ease-in-out'
-        });
+            { opacity: Math.random() * 0.4 + 0.3, offset: 0.15 },
+            { transform: `translateY(-50vh) translateX(${sway}px) rotate(180deg)`, opacity: 0.5, offset: 0.5 },
+            { transform: `translateY(-105vh) translateX(${sway * -1}px) rotate(360deg)`, opacity: 0 }
+        ], { duration: duration * 1000, easing: 'ease-in-out' });
 
         animation.onfinish = () => heart.remove();
     }
 
-    // Lanzamiento asincrónico aleatorio (Evita intervalos monótonos de tiempo fijo)
     function runHeartEngine() {
         createOrganicHeart();
-        const nextSpawnTime = Math.random() * 400 + 250; // Entre 250ms y 650ms de forma impredecible
-        setTimeout(runHeartEngine, nextSpawnTime);
+        setTimeout(runHeartEngine, Math.random() * 350 + 250);
     }
 
     window.onload = runHeartEngine;
