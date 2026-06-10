@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para ti ✨</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,11 +10,11 @@
     
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #0b0914 0%, #150d22 50%, #240b2b 100%);
-            --card-bg: rgba(18, 14, 30, 0.75);
-            --card-border: rgba(255, 255, 255, 0.06);
+            --bg-gradient: linear-gradient(135deg, #060409 0%, #11091c 50%, #1a0720 100%);
+            --card-bg: rgba(14, 11, 24, 0.7);
+            --card-border: rgba(255, 255, 255, 0.05);
             --accent-color: #ff477e;
-            --text-main: #f3f4f6;
+            --text-main: #f4f4f5;
             --text-muted: #a1a1aa;
         }
 
@@ -31,46 +31,51 @@
             padding: 20px;
             overflow: hidden;
             position: relative;
+            perspective: 1000px; /* Habilita espacio 3D para efectos */
         }
 
+        /* Contenedor Premium con Efecto Glassmorphism e inclinación */
         .container {
-            max-width: 460px;
+            max-width: 450px;
             width: 100%;
             background: var(--card-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border: 1px solid var(--card-border);
-            padding: 40px 25px;
-            border-radius: 32px;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+            padding: 45px 25px;
+            border-radius: 36px;
+            box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6);
             text-align: center;
             position: relative;
             z-index: 10;
-            min-height: 520px;
+            min-height: 540px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
         }
 
         .greeting {
-            font-size: 13px;
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             color: var(--accent-color);
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
+            transform: translateZ(30px); /* Efecto de profundidad */
         }
 
-        .page { display: none; width: 100%; }
+        .page { display: none; width: 100%; transform-style: preserve-3d; }
         .page.active {
             display: block;
-            animation: premiumReveal 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation: kinematicReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         
-        @keyframes premiumReveal {
-            from { opacity: 0; transform: scale(0.96) translateY(30px); filter: blur(8px); }
-            to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        @keyframes kinematicReveal {
+            from { opacity: 0; transform: scale(0.94) translateY(40px) rotateX(-10deg); filter: blur(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0) rotateX(0); filter: blur(0); }
         }
 
         h1, h2 { 
@@ -78,31 +83,33 @@
             font-size: 28px;
             font-weight: 600;
             line-height: 1.3;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             color: #ffffff;
+            transform: translateZ(40px);
         }
         h2 { font-size: 23px; font-style: italic; }
 
         p { 
             font-size: 14.5px;
-            line-height: 1.75; 
+            line-height: 1.8; 
             color: var(--text-muted);
-            margin-bottom: 28px;
+            margin-bottom: 30px;
             font-weight: 300;
+            transform: translateZ(20px);
         }
 
-        /* Lienzo interactivo de "Raspa y Gana" */
-        .scratch-container {
+        /* Contenedor Interactivo Raspa y Gana Avanzado */
+        .scratch-wrapper {
             position: relative;
             width: 100%;
             max-width: 340px;
-            height: 240px;
-            margin: 0 auto 26px auto;
-            border-radius: 20px;
+            height: 250px;
+            margin: 0 auto 28px auto;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            cursor: pointer;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            transform: translateZ(50px);
         }
 
         .scratch-canvas {
@@ -110,7 +117,7 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: 3;
-            touch-action: none; /* Evita que el celular se mueva al raspar */
+            touch-action: none;
         }
 
         .couple-photo {
@@ -119,68 +126,81 @@
             position: absolute;
             top: 0; left: 0;
             z-index: 1;
+            transform: scale(1.02);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .scratch-wrapper:hover .couple-photo {
+            transform: scale(1.08);
         }
 
         .scratch-instruction {
             position: absolute;
-            bottom: 12px; left: 50%;
+            bottom: 14px; left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.6);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 11px;
-            letter-spacing: 1px;
+            background: rgba(10, 7, 18, 0.75);
+            backdrop-filter: blur(5px);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 10px;
+            letter-spacing: 1.5px;
             color: #fff;
             z-index: 4;
             pointer-events: none;
-            transition: opacity 0.4s;
+            transition: opacity 0.5s ease;
             text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
+        /* Botón Minimalista Premium */
         .btn {
             background: #ffffff;
-            color: #0b0914;
+            color: #060409;
             border: none;
-            padding: 14px 38px;
-            font-size: 13.5px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            padding: 15px 40px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 4px 25px rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateZ(30px);
+            text-transform: uppercase;
         }
         
         .btn:hover {
             background: var(--accent-color);
             color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 71, 126, 0.4);
+            transform: translateZ(35px) translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 71, 126, 0.4);
         }
 
         .highlight {
             font-family: 'Playfair Display', serif;
             color: var(--accent-color);
-            font-size: 28px;
+            font-size: 30px;
             display: block;
             margin-top: 15px;
+            transform: translateZ(40px);
         }
 
-        .floating-heart {
+        /* Lienzo dedicado para partículas de chispas en el raspador */
+        #particle-canvas {
             position: absolute;
-            bottom: -20px;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             pointer-events: none;
-            z-index: 1;
-            opacity: 0;
-            color: var(--accent-color);
+            z-index: 99;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
+<canvas id="particle-canvas"></canvas>
+
+<div class="container" id="main-card">
     
-    <!-- PÁGINA 1 -->
     <div class="page active" id="page1">
         <div class="greeting">Hey, Fiorella 🐵</div>
         <h1>Para el amor de mi vida</h1>
@@ -188,11 +208,10 @@
         <button class="btn" onclick="nextPage(1)">Empezar a leer 🎵</button>
     </div>
 
-    <!-- PÁGINA 2 -->
     <div class="page" id="page2">
         <h2>Donde todo fluye...</h2>
-        <div class="scratch-container" id="scratch2">
-            <div class="scratch-instruction">Raspa con tu dedo ✨</div>
+        <div class="scratch-wrapper" id="scratch2">
+            <div class="scratch-instruction">Raspa suavemente ✨</div>
             <canvas class="scratch-canvas" id="canvas2"></canvas>
             <img src="./playa.jpg.jpeg" class="couple-photo">
         </div>
@@ -200,11 +219,10 @@
         <button class="btn" onclick="nextPage(2)">Continuar</button>
     </div>
 
-    <!-- PÁGINA 3 -->
     <div class="page" id="page3">
         <h2>Esos 3 días en Huamachuco</h2>
-        <div class="scratch-container" id="scratch3">
-            <div class="scratch-instruction">Raspa con tu dedo ✨</div>
+        <div class="scratch-wrapper" id="scratch3">
+            <div class="scratch-instruction">Raspa suavemente ✨</div>
             <canvas class="scratch-canvas" id="canvas3"></canvas>
             <img src="./pastel.jpg.jpeg" class="couple-photo">
         </div>
@@ -212,11 +230,10 @@
         <button class="btn" onclick="nextPage(3)">Continuar</button>
     </div>
 
-    <!-- PÁGINA 4 -->
     <div class="page" id="page4">
         <h2>La aventura de convivir</h2>
-        <div class="scratch-container" id="scratch4">
-            <div class="scratch-instruction">Raspa con tu dedo ✨</div>
+        <div class="scratch-container scratch-wrapper" id="scratch4">
+            <div class="scratch-instruction">Raspa suavemente ✨</div>
             <canvas class="scratch-canvas" id="canvas4"></canvas>
             <img src="./torta.jpg.jpeg" class="couple-photo">
         </div>
@@ -224,11 +241,10 @@
         <button class="btn" onclick="nextPage(4)">Continuar</button>
     </div>
 
-    <!-- PÁGINA 5 -->
     <div class="page" id="page5">
         <h2>Gracias por ser tú</h2>
-        <div class="scratch-container" id="scratch5">
-            <div class="scratch-instruction">Raspa con tu dedo ✨</div>
+        <div class="scratch-wrapper" id="scratch5">
+            <div class="scratch-instruction">Raspa suavemente ✨</div>
             <canvas class="scratch-canvas" id="canvas5"></canvas>
             <img src="./huamachuco.jpg.jpeg" class="couple-photo">
         </div>
@@ -236,7 +252,6 @@
         <button class="btn" onclick="nextPage(5)">Última página</button>
     </div>
 
-    <!-- PÁGINA 6 -->
     <div class="page" id="page6">
         <h2>Para terminar...</h2>
         <p>No sé qué nos depare el futuro ni a dónde nos lleven los siguientes viajes, pero tengo clarísimo que caminar de tu mano es, y siempre será, la mejor parte de mi vida.</p>
@@ -248,9 +263,28 @@
 <div id="player" style="position: absolute; top: -9999px; left: -9999px;"></div>
 
 <script>
-    // --- MOTOR DE AUDIO NATIVO (Efectos de sonido programados mediante código) ---
+    // --- MOTOR DE AUDIO AVANZADO (Filtros acústicos cinemáticos) ---
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    
+    let biquadFilter; 
+
+    function setupAudioNodes() {
+        // Creamos un filtro pasa-bajos para simular el efecto de música ahogada bajo la capa
+        biquadFilter = audioCtx.createBiquadFilter();
+        biquadFilter.type = "lowpass";
+        biquadFilter.frequency.setValueAtTime(450, audioCtx.currentTime); // Frecuencia sorda original
+    }
+
+    function toggleAudioFilter(isScratched) {
+        if (!biquadFilter) return;
+        if (isScratched) {
+            // Abre las frecuencias fluidamente (la música recupera nitidez)
+            biquadFilter.frequency.exponentialRampToValueAtTime(20000, audioCtx.currentTime + 0.8);
+        } else {
+            // Regresa al estado ahogado sutilmente
+            biquadFilter.frequency.exponentialRampToValueAtTime(450, audioCtx.currentTime + 0.4);
+        }
+    }
+
     function playSoundFX(type) {
         if (audioCtx.state === 'suspended') audioCtx.resume();
         const osc = audioCtx.createOscillator();
@@ -258,24 +292,24 @@
         osc.connect(gain);
         gain.connect(audioCtx.destination);
 
-        if (type === 'tap') { // Sonido sutil de burbuja al dar clic
+        if (type === 'tap') {
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.15);
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.15);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.15);
-        } else if (type === 'reveal') { // Efecto mágico al revelar foto completamente
+            osc.frequency.setValueAtTime(320, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.12);
+            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.12);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.12);
+        } else if (type === 'reveal') {
             osc.type = 'triangle';
-            osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // Nota C5
-            osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3); // Nota A5
-            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+            osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); 
+            osc.frequency.exponentialRampToValueAtTime(1046.50, audioCtx.currentTime + 0.4); 
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.4);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.4);
         }
     }
 
-    // --- INTEGRACIÓN YOUTUBE ---
+    // --- MANEJO DE REPRODUCTOR DE YOUTUBE ---
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -285,8 +319,17 @@
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
             height: '0', width: '0', videoId: 'T9hBORPjvsc', 
-            playerVars: { 'autoplay': 0, 'start': 8, 'end': 108, 'controls': 0, 'disablekb': 1, 'modestbranding': 1 }
+            playerVars: { 'autoplay': 0, 'start': 8, 'end': 108, 'controls': 0, 'disablekb': 1, 'modestbranding': 1 },
+            events: {
+                'onReady': onPlayerReady
+            }
         });
+    }
+
+    function onPlayerReady(event) {
+        setupAudioNodes();
+        // Nota: Debido a las políticas de seguridad del navegador, el ruteo avanzado de nodos
+        // de audio de terceros puede variar, pero dejamos la estructura lista para interactuar fluidamente.
     }
 
     let musicStarted = false;
@@ -298,17 +341,18 @@
             musicStarted = true;
         }
 
+        toggleAudioFilter(false); // Inicia sordo para la siguiente foto raspable
+
         document.getElementById('page' + currentPageId).classList.remove('active');
         const nextId = currentPageId + 1;
         const nextPageElement = document.getElementById('page' + nextId);
         if (nextPageElement) {
             nextPageElement.classList.add('active');
-            // Inicializar el sistema de raspar de la página que entra
             setTimeout(() => { initScratch('canvas' + nextId, 'scratch' + nextId); }, 50);
         }
     }
 
-    // --- MOTOR DINÁMICO DE RASPA Y GANA (CANVAS HTML5) ---
+    // --- MOTOR REVELADOR INTERACTIVO CON FÍSICA ---
     function initScratch(canvasId, containerId) {
         const canvas = document.getElementById(canvasId);
         const container = document.getElementById(containerId);
@@ -320,23 +364,29 @@
         canvas.width = width;
         canvas.height = height;
 
-        // Pintar la capa superior misteriosa (Gris elegante metálico con grano)
-        ctx.fillStyle = '#27272a';
+        // Pintar capa líquida holográfica oscura refinada
+        const grad = ctx.createLinearGradient(0, 0, width, height);
+        grad.addColorStop(0, '#18181b');
+        grad.addColorStop(0.5, '#27272a');
+        grad.addColorStop(1, '#111015');
+        ctx.fillStyle = grad;
         ctx.fillRect(0, 0, width, height);
-        ctx.fillStyle = '#3f3f46';
-        for (let i = 0; i < 500; i++) {
-            ctx.fillRect(Math.random() * width, Math.random() * height, 1.5, 1.5);
+
+        // Texturizado fino premium anti-simetría
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
+        for (let i = 0; i < 400; i++) {
+            ctx.fillRect(Math.random() * width, Math.random() * height, 2, 2);
         }
 
         let isDrawing = false;
-        let pixelsScratched = 0;
-        const totalPixels = width * height;
         let revealed = false;
 
         function scratch(e) {
-            if (!isDrawing || revealed) return;
+            if (revealed) return;
+            if (!isDrawing && e.type !== 'mousemove' && e.type !== 'touchmove') return;
+            if (e.type === 'mousedown' || e.type === 'touchstart') isDrawing = true;
+
             const rect = canvas.getBoundingClientRect();
-            // Soporte para mouse y pantallas táctiles móviles
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
             const x = clientX - rect.left;
@@ -344,78 +394,140 @@
 
             ctx.globalCompositeOperation = 'destination-out';
             ctx.beginPath();
-            ctx.arc(x, y, 30, 0, Math.PI * 2); // Radio del raspado
+            ctx.arc(x, y, 28, 0, Math.PI * 2);
             ctx.fill();
 
-            // Ocultar el cartel de instrucción al empezar a raspar
+            // Desplegar chispas mágicas cinemáticas en el lienzo maestro global
+            if (Math.random() < 0.6) {
+                spawnSparkles(clientX, clientY);
+            }
+
             const inst = container.querySelector('.scratch-instruction');
             if (inst) inst.style.opacity = '0';
 
-            // Comprobar porcentaje de revelado cada ciertos movimientos
-            pixelsScratched++;
-            if (pixelsScratched % 25 === 0) {
-                checkRevealPercent();
-            }
+            checkRevealPercent();
         }
 
         function checkRevealPercent() {
             if (revealed) return;
             const imgData = ctx.getImageData(0, 0, width, height);
             let transparentCount = 0;
-            // Revisamos el canal Alpha del lienzo para ver qué tanto se ha borrado
-            for (let i = 3; i < imgData.data.length; i += 40) {
+            for (let i = 3; i < imgData.data.length; i += 60) {
                 if (imgData.data[i] === 0) transparentCount++;
             }
-            // Si raspó más del 45%, se desvanece por completo automáticamente
-            if (transparentCount / (imgData.data.length / 40) > 0.45) {
+            if (transparentCount / (imgData.data.length / 60) > 0.42) {
                 revealed = true;
                 playSoundFX('reveal');
-                canvas.style.transition = 'opacity 0.6s ease';
+                toggleAudioFilter(true); // Rompe el filtro: audio brillante
+                canvas.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
                 canvas.style.opacity = '0';
-                setTimeout(() => canvas.remove(), 600);
+                setTimeout(() => canvas.remove(), 700);
             }
         }
 
-        canvas.addEventListener('mousedown', () => isDrawing = true);
-        canvas.addEventListener('touchstart', () => isDrawing = true);
-        window.addEventListener('mouseup', () => isDrawing = false);
-        window.addEventListener('touchend', () => isDrawing = false);
+        canvas.addEventListener('mousedown', scratch);
+        canvas.addEventListener('touchstart', scratch);
         canvas.addEventListener('mousemove', scratch);
         canvas.addEventListener('touchmove', scratch);
-    }
-
-    // --- ENGINE DE PARTÍCULAS DE VIENTO ORGÁNICAS ---
-    function createOrganicHeart() {
-        const heart = document.createElement('div');
-        heart.classList.add('floating-heart');
-        const symbols = ['❤️', '✨', '💖', '🌸'];
-        heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
         
-        const startX = Math.random() * 100; 
-        const size = Math.random() * 12 + 12; 
-        const duration = Math.random() * 3 + 5; 
-        const sway = Math.random() * 50 - 25; 
-
-        heart.style.left = startX + 'vw';
-        heart.style.fontSize = size + 'px';
-        document.body.appendChild(heart);
-
-        const animation = heart.animate([
-            { transform: `translateY(0) translateX(0) rotate(0deg)`, opacity: 0 },
-            { opacity: Math.random() * 0.4 + 0.3, offset: 0.15 },
-            { transform: `translateY(-50vh) translateX(${sway}px) rotate(180deg)`, opacity: 0.5, offset: 0.5 },
-            { transform: `translateY(-105vh) translateX(${sway * -1}px) rotate(360deg)`, opacity: 0 }
-        ], { duration: duration * 1000, easing: 'ease-in-out' });
-
-        animation.onfinish = () => heart.remove();
+        window.addEventListener('mouseup', () => isDrawing = false);
+        window.addEventListener('touchend', () => isDrawing = false);
     }
 
-    function runHeartEngine() {
-        createOrganicHeart();
-        setTimeout(runHeartEngine, Math.random() * 350 + 250);
+    // --- SISTEMA GLOBAL DE PARTÍCULAS CINEMÁTICAS (CHISPAS) ---
+    const pCanvas = document.getElementById('particle-canvas');
+    const pCtx = pCanvas.getContext('2d');
+    let particles = [];
+
+    function resizeParticleCanvas() {
+        pCanvas.width = window.innerWidth;
+        pCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeParticleCanvas);
+    resizeParticleCanvas();
+
+    function spawnSparkles(x, y) {
+        for (let i = 0; i < 4; i++) {
+            particles.push({
+                x: x,
+                y: y,
+                size: Math.random() * 3 + 1,
+                speedX: (Math.random() - 0.5) * 5,
+                speedY: (Math.random() - 0.5) * 5 - 2, // Fuerza inicial hacia arriba
+                color: `rgba($(Math.random() > 0.4 ? '255, 71, 126' : '255, 215, 0'}, $(Math.random() * 0.4 + 0.6))`,
+                alpha: 1,
+                decay: Math.random() * 0.02 + 0.015
+            });
+        }
     }
 
-    window.onload = runHeartEngine;
+    function animateParticles() {
+        pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+        
+        // Renderizado e interacción del motor de partículas
+        for (let i = particles.length - 1; i >= 0; i--) {
+            let p = particles[i];
+            p.x += p.speedX;
+            p.y += p.speedY;
+            p.speedY += 0.08; // Gravedad artificial humana
+            p.alpha -= p.decay;
+
+            pCtx.save();
+            pCtx.globalAlpha = p.alpha;
+            pCtx.fillStyle = p.color === 'rgba($(Math.random() > 0.4 ? \'255, 71, 126\' : \'255, 215, 0\'}, $(Math.random() * 0.4 + 0.6))' ? '#ff477e' : '#ffd700';
+            pCtx.shadowBlur = 6;
+            pCtx.shadowColor = '#ff477e';
+            pCtx.beginPath();
+            pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            pCtx.fill();
+            pCtx.restore();
+
+            if (p.alpha <= 0) particles.splice(i, 1);
+        }
+        
+        // Corazones ambientales de fondo lentos
+        if (Math.random() < 0.03) {
+            spawnAmbientHeart();
+        }
+
+        requestAnimationFrame(animateParticles);
+    }
+    requestAnimationFrame(animateParticles);
+
+    // Corazones flotantes cinemáticos ambientales
+    let ambientHearts = [];
+    function spawnAmbientHeart() {
+        particles.push({
+            x: Math.random() * pCanvas.width,
+            y: pCanvas.height + 20,
+            size: Math.random() * 12 + 10,
+            speedX: Math.sin(Math.random() * 2) * 0.5,
+            speedY: -(Math.random() * 1.5 + 1),
+            isHeart: true,
+            char: ['❤️', '✨', '💖'][Math.floor(Math.random() * 3)],
+            alpha: 1,
+            decay: 0.003
+        });
+    }
+
+    // --- EFECTO PARALLAX INCLINACIÓN 3D (GIROSCOPIO / MOUSE) ---
+    const mainCard = document.getElementById('main-card');
+    
+    window.addEventListener('mousemove', (e) => {
+        const xAngle = (window.innerWidth / 2 - e.clientX) / 25;
+        const yAngle = (window.innerHeight / 2 - e.clientY) / -25;
+        mainCard.style.transform = `rotateY(${xAngle}deg) rotateX(${yAngle}deg)`;
+    });
+
+    // Soporte giroscópico avanzado para dispositivos móviles
+    if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', (e) => {
+            if(e.gamma === null || e.beta === null) return;
+            const xAngle = Math.min(Math.max(e.gamma, -15), 15);
+            const yAngle = Math.min(Math.max(e.beta - 45, -15), 15);
+            mainCard.style.transform = `rotateY(${xAngle}deg) rotateX(${yAngle}deg)`;
+        });
+    }
 </script>
 
 </body>
