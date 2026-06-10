@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para el amor de mi vida ❤️</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Pantalla de bienvenida / Botón para activar música */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+
+        .start-btn {
+            background: white;
+            color: #ff9a9e;
+            border: none;
+            padding: 15px 40px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Contenedor principal de la carta */
+        .container {
+            max-width: 550px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.88); 
+            color: #4a4a4a;
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+            margin: 40px 0;
+        }
+
+        /* Cuando se activa la página */
+        .container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1 { 
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #dc3545; 
+        }
+        p { 
+            font-size: 18px; 
+            line-height: 1.8; 
+            margin-bottom: 20px;
+        }
+        .highlight {
+            color: #dc3545;
+            font-size: 22px;
+            display: block;
+            margin-top: 25px;
+        }
+        .music-note { 
+            font-size: 40px; 
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+<div id="welcome-screen">
+    <h2 style="color: white; margin-bottom: 20px; text-shadow: 1px 1px 4px rgba(0,0,0,0.1);">Te preparé algo...</h2>
+    <button class="start-btn" onclick="startExperience()">Abrir ❤️</button>
+</div>
+
+<div class="container" id="main-card">
+    <h1>Para el amor de mi vida ❤️</h1>
+    
+    <p>
+        No hice esta página porque sea una fecha especial.<br>
+        La hice porque pensé en ti.<br>
+        Porque a veces las personas importantes merecen<br>
+        que les recuerden lo mucho que significan. ✨
+    </p>
+    
+    <p>
+        Desde que llegaste a mi vida, muchas cosas cambiaron para bien.<br>
+        Tus mensajes alegran mis días y tu cariño hace que todo sea más bonito.<br>
+        Gracias por existir y por cada recuerdo juntos.
+    </p>
+    
+    <span class="highlight"><strong>Te quiero muchísimo. ❤️</strong></span>
+    
+    <div class="music-note">🎵</div>
+</div>
+
+<div id="player" style="position:absolute; top:-9999px; left:-9999px;"></div>
+
+<script>
+    // Carga la API de YouTube de forma asíncrona
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: '0',
+            width: '0',
+            videoId: '_zmjCoWvXYg', // Tu primera canción de YouTube
+            playerVars: {
+                'autoplay': 0,
+                'loop': 1,
+                'playlist': '_zmjCoWvXYg'
+            }
+        });
+    }
+
+    // Función que se ejecuta al pulsar el botón "Abrir"
+    function startExperience() {
+        // 1. Desaparece la pantalla de carga
+        var welcome = document.getElementById("welcome-screen");
+        welcome.style.opacity = "0";
+        setTimeout(function() {
+            welcome.style.display = "none";
+        }, 800);
+
+        // 2. Muestra la carta con una animación suave
+        document.getElementById("main-card").classList.add("show");
+
+        // 3. ENCIENDE LA MÚSICA (Ya permitido porque el usuario hizo clic)
+        if (player && typeof player.playVideo === 'function') {
+            player.playVideo();
+        }
+    }
+</script>
+
+</body>
+</html>
